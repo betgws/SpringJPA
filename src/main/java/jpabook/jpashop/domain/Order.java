@@ -24,9 +24,10 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @ManyToOne(fetch = LAZY) // 지연로딩이면 얘가 진짜 new해서 멤버객체를 안가져옴,
+    @JoinColumn(name = "member_id")            // 근데 null로 둘수는 없으니까 Proxy 객체를 가져옴
+    private Member member;                    //프록시 객체를 가짜로 넣어놓고,뭔가 멤버에 접근하면 그때 DB에 멤버 객체에 sql을 날려서
+                                              //멤버 객체를 넣어줌
 
     @JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
