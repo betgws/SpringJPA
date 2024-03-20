@@ -34,6 +34,7 @@ public class MemberService {
     }
 
     //회원 전체 조회
+
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
@@ -42,4 +43,10 @@ public class MemberService {
         return memberRepository.findOne(memberId);
     }
 
+
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);
+        member.setName(name); // member를 반환하게 되면 영속성 컨테스트에서 나옴??
+    }
 }
