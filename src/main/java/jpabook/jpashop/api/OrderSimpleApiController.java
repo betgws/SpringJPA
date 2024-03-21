@@ -63,6 +63,16 @@ public class OrderSimpleApiController {
             address = order.getMember().getAddress(); // LAZY 초기화
         }
     }
+    @GetMapping("/api/v3/simple-orders") // 어떻게 쿼리가 1번 나옴?? 루프를 도는데
+    public List<SimpleOrderDto> ordersV3(){
+        List<Order> orders = orderRepository.findALlWithMemberDelivery();
+
+        List<SimpleOrderDto> result = orders.stream()
+                .map(o->new SimpleOrderDto(o))
+                .collect(Collectors.toList());
+
+        return result;
+    }
 
 
 }
