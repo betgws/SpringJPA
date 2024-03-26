@@ -29,7 +29,7 @@ public class Order {
     private Member member;                    //프록시 객체를 가짜로 넣어놓고,뭔가 멤버에 접근하면 그때 DB에 멤버 객체에 sql을 날려서
                                               //멤버 객체를 넣어줌
 
-    @JsonIgnore
+    @BatchSize(size = 1000)
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
